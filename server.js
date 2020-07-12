@@ -13,37 +13,43 @@ let friends = [
     id: 1,
     name: 'Rachel Green',
     age: 30,
-    email: 'rachel@friends.com'
+    email: 'rachel@friends.com',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/JenniferAnistonHWoFFeb2012.jpg/800px-JenniferAnistonHWoFFeb2012.jpg'
   },
   {
     id: 2,
     name: 'Joey Tribbiani',
     age: 34,
-    email: 'joey@friends.com'
+    email: 'joey@friends.com',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/0/0d/X_217c5312.jpg',
   },
   {
     id: 3,
     name: 'Chandler Bing',
     age: 32,
-    email: 'chandler@friends.com'
+    email: 'chandler@friends.com',
+    img: 'https://upload.wikimedia.org/wikipedia/en/6/66/Matthew_Perry_as_Chandler_Bing.png',
   },
   {
     id: 4,
     name: 'Ross Geller',
     age: 32,
-    email: 'ross@friends.com'
+    email: 'ross@friends.com',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/David_Schwimmer_2011.jpg/800px-David_Schwimmer_2011.jpg',
   },
   {
     id: 5,
     name: 'Monica Bing',
     age: 31,
-    email: 'monica@friends.com'
+    email: 'monica@friends.com',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/0/0f/CourteneyCoxFeb09.jpg',
   },
   {
     id: 6,
     name: 'Phoebe Buffay-Hannigan',
     age: 30,
-    email: 'phoebe@friends.com'
+    email: 'phoebe@friends.com',
+    img: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Friendsphoebe.jpg',
   }
 ];
 
@@ -62,7 +68,7 @@ function authenticator(req, res, next) {
 
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
-  if (username === 'Lambda School' && password === 'i<3Lambd4') {
+  if (username === 'bdavis' && password === 'davis') {
     req.loggedIn = true;
     res.status(200).json({
       payload: token
