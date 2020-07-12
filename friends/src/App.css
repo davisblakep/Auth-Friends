@@ -29,3 +29,12 @@ body {
   background-size: cover;
   height: 100%;
 }
+
+.addFriendPage{
+  background-image: url('https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 92vh;
+}

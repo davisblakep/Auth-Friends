@@ -41,15 +41,15 @@ const FriendsList = () => {
         <div style={{paddingTop: "6%", paddingBottom: "6%"}}>
             <Grid container spacing={6} display='flex' justify="space-around" align="center">
             {friends.map(person => {return(
-                <Grid item xs>
-        <Card className={classes.root} key={person.id}>
+                <Grid item xs key={person.id}>
+        <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           component="img"
           alt={person.name}
           height="320"
           image={person.img}
-          title="Contemplative Reptile"
+          title={person.name}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">

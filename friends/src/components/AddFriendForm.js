@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
@@ -36,12 +37,15 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-export default function LoginForm(props) {
+export default function AddFriendForm(props) {
   const classes = useStyles();
 
   const [formState, setFormState] = useState({
-    username: "",
-    password: "",
+    name: "",
+    age: "",
+    email: "",
+    img: "",
+    id: Date.now(),
 })
 
 const inputChange = (e) => {
@@ -57,16 +61,14 @@ const submitForm = (e) => {
     e.preventDefault();
    
     axiosWithAuth()
-        .post('/api/login', formState)
+        .post('/api/friends', formState)
         .then(res => {
-           console.log("Axios submit form res", res);
-           window.localStorage.setItem('token', res.data.payload);
-           setTimeout(()=>{history.push('/dashboard')},1000);
-         
+           console.log("Axios addfriend submit form res", res);
+           history.push('/dashboard')
         })
         .catch(err => console.log(err))
 
-    setFormState({username: "", password: ""})
+    setFormState({name: "", age: "", email: "", img: ""})
         
 }
 
@@ -75,7 +77,7 @@ const submitForm = (e) => {
         <Card className={classes.root} style={{opacity: "0.9", marginLeft: "10%"}}>
            <CardContent>
               <Typography variant="h5" component="h2">
-               Login
+               Add Your Friend
               </Typography>
               <br />
            <form onSubmit={submitForm} className={classes.form} autoComplete="off">
@@ -83,9 +85,9 @@ const submitForm = (e) => {
                  <TextField 
                  autoFocus
                  required={true} 
-                 id="username" 
-                 name="username"
-                 label="Username" 
+                 id="name" 
+                 name="name"
+                 label="Name" 
                  value={formState.name}
                  onChange={inputChange}
                  variant="filled" 
@@ -93,18 +95,45 @@ const submitForm = (e) => {
               </FormControl>
               <FormControl required>
                  <TextField 
-                 id="password" 
-                 name="password"
-                 label="Password" 
-                 value={formState.password}
+                 id="age" 
+                 name="age"
+                 label="Age" 
+                 value={formState.age}
                  onChange={inputChange}
                  variant="filled" 
-                 type="password" 
+                 type="text" 
                  required={true}
                  />
                </FormControl>
+               <FormControl required>
+                 <TextField 
+                 id="email" 
+                 name="email"
+                 label="Email" 
+                 value={formState.email}
+                 onChange={inputChange}
+                 variant="filled" 
+                 type="email" 
+                 required={true}
+                 />
+               </FormControl>
+               <FormControl required>
+                 <TextField 
+                 id="img" 
+                 name="img"
+                 label="Image URL" 
+                 value={formState.img}
+                 onChange={inputChange}
+                 variant="filled" 
+                 type="text" 
+                 required={true}
+                 />
+                 </FormControl>
              <CardActions>
            <Button type="submit" size="small">Submit</Button>
+           <Link to="/dashboard" style={{textDecoration: "none"}}>
+           <Button size="small">Cancel</Button>
+           </Link>
           </CardActions>
         </form>
       </CardContent>

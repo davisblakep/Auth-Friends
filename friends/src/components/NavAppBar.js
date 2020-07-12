@@ -36,8 +36,8 @@ export default function NavAppBar() {
           <Typography variant="h6" className={classes.title}>
             Friends
           </Typography>
-          <Link to="/login" style={{textDecoration: 'none', color: "white"}}>
-          <Button color="inherit">Login</Button>
+          <Link to="/dashboard" style={{textDecoration: 'none', color: "white"}}>
+          <Button color="inherit">Dashboard</Button>
           </Link>
         </Toolbar>
       </AppBar>
