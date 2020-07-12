@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl'
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 
 
@@ -44,11 +44,6 @@ export default function LoginForm(props) {
     password: "",
 })
 
-const [errorState, setErrorState] = useState({
-  username: "",
-  password: "",
-})
-
 const inputChange = (e) => {
     e.persist();
     setFormState({...formState, [e.target.name]: e.target.value});
@@ -57,27 +52,21 @@ const inputChange = (e) => {
 
 let history = useHistory();
 
-const submitButton = () => {
-  return 
-}
 
 const submitForm = (e) => {
     e.preventDefault();
-    // props.BackerDisplayName.BackerDisplayName(formState)
+   
+    axiosWithAuth()
+        .post('/api/login', formState)
+        .then(res => {
+           console.log("Axios submit form res", res);
+           window.localStorage.setItem('token', res.data.payload);
+           history.push('/dashboard')
+        })
+        .catch(err => console.log(err))
+
     setFormState({username: "", password: ""})
-    // axios
-    //     // .post("http://localhost:4900/api/backer/login", formState)
-    //     .post("https://vr-direct1.herokuapp.com/api/backer/login", formState)
-    //     .then(response => {
-    //       const decoded = jwt.decode(response.data.token);
-    //       console.log("Axios response from Backer Login submit", response, decoded);
-    //       console.log("Axios response from Backer Login userID", decoded.userId);  
-    //       localStorage.setItem("token", response.data.token);
-    //       setTimeout(()=>{history.push(`/backer-dashboard/${decoded.userId}`)},1000);
-    //       {props.BackerDisplayName.BackerDisplayName(response, decoded)};
-    //       ;})
-    //     .catch(err => {console.log("Axios error", err)});
-        submitButton()
+        
 }
 
   return (
@@ -99,9 +88,7 @@ const submitForm = (e) => {
                  value={formState.name}
                  onChange={inputChange}
                  variant="filled" 
-                 isRequired="true"
                  />
-                 <Typography style={{color: 'red', fontSize: '10px'}}>{errorState.username}</Typography>
               </FormControl>
               <FormControl required>
                  <TextField 
@@ -113,9 +100,7 @@ const submitForm = (e) => {
                  variant="filled" 
                  type="password" 
                  required={true}
-                 isRequired="true"
                  />
-                 <Typography style={{color: 'red', fontSize: '10px'}}>{errorState.password}</Typography>
                </FormControl>
              <CardActions>
            <Button type="submit" size="small">Submit</Button>
